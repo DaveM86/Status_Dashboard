@@ -1,0 +1,31 @@
+{% extends "board/base.html"%}
+{% load crispy_forms_tags %}
+{% block content %}
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-5">
+			<div class='content-section'>
+				<form method='POST'>
+					{% csrf_token %}
+					<fieldset class="form-group">
+						<legend class="border-bottom mb-4">Sign for your Task</legend>
+						{{ form|crispy }}
+					</fieldset>
+					<div class="form-group" style="padding-top:15px; padding-bottom:5px ;">
+						<div class="row">
+							<div class="col-md-8">
+							</div>
+							<div class="col-md-4">
+								<button class="btn btn-outline-dark" type="submit">Sign for Task</button>
+							</div>
+<!-- 							<div class="col-md-4">
+								<button class="btn btn-outline-dark" href="{% url 'diary' %}">Cancel</button>
+							</div> -->
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock content %}

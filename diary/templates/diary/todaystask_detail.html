@@ -1,0 +1,26 @@
+{% extends "board/base.html"%}
+
+{% block content %}
+	<div class="row">
+		<div class="col-md-3">
+		</div>
+		<div class="col-md-6">
+			<article class="media content-section">
+			  <div class="media-body">
+			    <div class="article-metadata">
+			      <small class="text-muted">Task created for {{ object.date_created|date:"d F, Y" }}</small>
+			    </div>
+			    <h4 class="article-title">{{ object.task.title }}</h4>
+			    <p class="article-content">{{ object.task.task_desc }}</p>
+			    {% if object.task_completed_by %}
+				    <small class="article-content" style="text-muted">
+				    	Closed by {{ object.task_completed_by }} at {{ object.date_completed }}
+				    </small>
+			    {% endif %}
+			  </div>
+			</article>
+		</div>
+		<div class="col-md-3">
+		</div>
+	</div>
+{% endblock content %}

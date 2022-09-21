@@ -1,0 +1,45 @@
+{% extends "board/base.html"%}
+{% load static %}
+{% block content %}
+
+	<div class="row">
+	  	<div class="col-md-9" style="padding-left: 40px;">
+			{% if graph %}
+				<div>
+					{{ graph|safe }}
+				</div>
+			{% endif %}
+		</div>
+	  	<div class="col-md-3" style="padding-left: 10px">
+	  		<div class="row">
+	  			<h3 style="padding-left: 20px; color: black;">Recent Updates</h3>
+	  		</div>
+		  		<div class="row" style="padding-top: 10px;">
+			  		{% for comment in comments %}
+			  			<div class="col-md-12">
+			  				<article class="media content-section" style="background-color: #ffffff;">
+			  					<div class="media-body">
+			  						<div class="article-metadata">
+			  							<h5>{{ comment.title }}</h5>
+			  						</div>
+			  						<h7 class="media-body" style="color:black;">{{ comment.content }}</h7><br>
+			  						<small class="text-muted">{{ comment.date_posted |date:"d F, Y" }}</small><br>
+			  					</div>
+			  				</article>
+			  			</div>
+			  		{% endfor %}
+			  	</div>
+	  		<div>
+				<a class="btn btn-outline-dark"href="{% url 'comment-create' %}">New Update</a>
+			</div>
+	  	</div>
+	</div>
+<!-- 	<div>
+		{% if graph %}
+			<div>
+				{{ graph|safe }}
+			</div>
+		{% endif %}
+	</div> -->
+
+{% endblock content %}

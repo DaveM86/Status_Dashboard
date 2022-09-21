@@ -1,0 +1,162 @@
+{% extends "board/base.html"%}
+{% load static %}
+{% block content %}
+	<div class="row">
+		<div class="col-md-1">
+			<a href="adhock-create" style="cursor: pointer;"><img src="{% static 'board/media/task.png' %}" style="width:80px; height:auto;"></a>
+			 <!-- <a href="diary-reset" style="cursor: pointer;"><img src="{% static 'board/media/reset.png' %}" style="width:60px; height:auto;"></a> -->
+		</div>
+		<div class="col-md-10">
+			<div class="row">
+				<div class="col-md-3">
+					<article class="content	content-section head-diary" style="background-color: #2F7395; color: white;">
+						<div><h6>Workshop</h6></div>
+					</article>
+					{% for task in task %}
+						{% if task.task.section == 'Workshop' %}
+							{% if task.task_completed_by %}
+								<article class="content	content-section" style="background-color: #f6f6f6; opacity: 50%;">
+									<div>{{ task.task }}</div>
+									<div class="row">
+										<div class="col-md-3">
+											<a href="{% url 'diary-detail' task.id %}" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+										</div>
+										<div class="col-md-9">
+											Signed: {{ task.task_completed_by }}
+										</div>
+									</div>
+								</article>
+							{% else %}
+								<article class="content	content-section" style="border: 1px solid #2F7395;">
+									<div><a href="{% url 'diary-update' task.id %}" style="text-decoration: none; color: black;">{{ task.task }}</a></div>
+									<a href="{% url 'diary-detail' task.id %}" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+								</article>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+					{% for task in adhocktask %}
+						{% if task.section == 'Workshop' %}
+							<article class="content	content-section" style="border: 1px solid purple;">
+								<div><a href="#" style="text-decoration: none; color: black;">{{ task.title }}</a></div>
+								<small>Task POC is {{ task.created_by  }}</small><br>
+								<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+							</article>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="col-md-3">
+					<article class="content	content-section head-diary" style="background-color: #2F7395; color: white;">
+						<div><h6>Front Desk</h6></div>
+					</article>
+					{% for task in task %}
+						{% if task.task.section == 'Front Desk' %}
+							{% if task.task_completed_by %}
+								<article class="content	content-section" style="background-color: #f6f6f6; opacity: 50%;">
+									<div>{{ task.task }}</div>
+									<div class="row">
+										<div class="col-md-3">
+											<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+										</div>
+										<div class="col-md-9">
+											Signed: {{ task.task_completed_by }}
+										</div>
+									</div>
+								</article>
+							{% else %}
+								<article class="content	content-section" style="border: 1px solid #2F7395;">
+									<div><a href="{% url 'diary-update' task.id %}" style="text-decoration: none; color: black;">{{ task.task }}</a></div>
+									<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+								</article>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+					{% for task in adhocktask %}
+						{% if task.section == 'Front Desk' %}
+							<article class="content	content-section" style="border: 1px solid purple;">
+								<div><a href="#" style="text-decoration: none; color: black;">{{ task.title }}</a></div>
+								<small>Task POC is {{ task.created_by  }}</small><br>
+								<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+							</article>
+						{% endif %}
+					{% endfor %}				
+				</div>
+				<div class="col-md-3">
+					<article class="content	content-section head-diary" style="background-color: #2F7395; color: white;">
+						<div><h6>Workshop Manager</h6></div>
+					</article>
+					{% for task in task %}
+						{% if task.task.section == 'Workshop Manager' %}
+							{% if task.task_completed_by %}
+								<article class="content	content-section" style="background-color: #f6f6f6; opacity: 50%;">
+									<div>{{ task.task }}</div>
+									<div class="row">
+										<div class="col-md-3">
+											<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+										</div>
+										<div class="col-md-9">
+											Signed: {{ task.task_completed_by }}
+										</div>
+									</div>
+								</article>
+							{% else %}
+								<article class="content	content-section" style="border: 1px solid #2F7395;">
+									<div><a href="{% url 'diary-update' task.id %}" style="text-decoration: none; color: black;">{{ task.task }}</a></div>
+									<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+								</article>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+					{% for task in adhocktask %}
+						{% if task.section == 'Workshop Manager' %}
+							<article class="content	content-section" style="border: 1px solid purple;">
+								<div><a href="#" style="text-decoration: none; color: black;">{{ task.title }}</a></div>
+								<small>Task POC is {{ task.created_by  }}</small><br>
+								<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+							</article>
+						{% endif %}
+					{% endfor %}				
+				</div>
+				<div class="col-md-3">
+					<article class="content	content-section head-diary" style="background-color: #2F7395; color: white;">
+						<div><h6>Front Desk Manager</h6></div>
+					</article>
+					{% for task in task %}
+						{% if task.task.section == 'Front Desk Manager' %}
+							{% if task.task_completed_by %}
+								<article class="content	content-section" style="background-color: #f6f6f6; opacity: 50%;">
+									<div>{{ task.task }}</div>
+									<div class="row">
+										<div class="col-md-3">
+											<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+										</div>
+										<div class="col-md-9">
+											Signed: {{ task.task_completed_by }}
+										</div>
+									</div>
+								</article>
+							{% else %}
+								<article class="content	content-section" style="border: 1px solid #2F7395;">
+									<div><a href="{% url 'diary-update' task.id %}" style="text-decoration: none; color: black;">{{ task.task }}</a></div>
+									<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+								</article>
+							{% endif %}
+						{% endif %}
+					{% endfor %}
+					{% for task in adhocktask %}
+						{% if task.section == 'Front Desk Manager' %}
+							<article class="content	content-section" style="border: 1px solid purple;">
+								<div><a href="#" style="text-decoration: none; color: black;">{{ task.title }}</a></div>
+								<small>Task POC is {{ task.created_by  }}</small><br>
+								<a href="#" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:20px; height:auto;"></a>
+							</article>
+						{% endif %}
+					{% endfor %}					
+				</div>
+			</div>
+			<div class="col-md-1">
+				<a href="{% url 'hard-reset' %}"><img src="{% static 'board/media/fault.png' %}" style="width:20px; height:auto;"></a>	
+			</div>
+		</div>
+	</div>
+
+{% endblock content %}

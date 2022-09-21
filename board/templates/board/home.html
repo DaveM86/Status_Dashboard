@@ -1,0 +1,158 @@
+{% extends "board/base.html"%}
+{% load static %}
+{% block content %}
+
+	<div class="row">
+		<div class="col-md-1">
+			<!-- modal trigger -->
+			<div class="row">
+				<a  data-bs-toggle="modal" data-bs-target="#commentsmodal" style="cursor: pointer;"><img src="{% static 'board/media/comments.png' %}" style="width: 50px; height: auto;"></a>
+			</div>
+			<!-- modal body -->
+			<div class="modal fade" id="commentsmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <h5 class="modal-title" id="exampleModalLabel">Recent Comments</h5>
+			        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			      </div>
+			      <div class="modal-body">
+			  		{% for comment in comments %}
+			  			<div class="col-md-12">
+			  				<article class="media content-section" style="background-color: #ffffff;">
+			  					<div class="media-body">
+			  						<div class="article-metadata">
+			  							<h5>{{ comment.title }}</h5>
+			  						</div>
+			  						<h7 class="media-body" style="color:black;">{{ comment.content }}</h7><br>
+			  						<small class="text-muted">{{ comment.date_posted |date:"d F, Y" }}</small><br>
+			  					</div>
+			  				</article>
+			  			</div>
+			  		{% endfor %}			      	
+			      </div>
+			      <div class="modal-footer">
+			      	<button type="button" class="btn btn-outline-dark" href="{% url 'comment-create' %}">Comment</button>
+			        <button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+		</div>
+		<div class="col-md-11">
+		  	<div class="row">	
+		  		{% for state in  serviceablility_headings%}
+					<div class="col-md-{{ column_width }}">
+						<div class="row">
+							<article class="media content-section head-{{ state }}" style="width:80%">
+								<div><h6>{{ state }}</h6></div>
+							</article>
+						</div>
+						<div>
+							{% for DSS in DSS %}
+									{% if DSS.servicable == state %}
+										<div class="row">
+											<article class="content	content-section" style="border: 1px solid black; width:80%">						
+												<div class="row">
+													<div class="col-md-12">
+														<a class="article-title" href="{% url 'DSS-update' DSS.id%}" style="text-decoration:none;">{{ DSS.title }} - {{DSS.db_num}}</a>
+													</div>
+													<div class="row">
+														<div class="col-md-9">
+															<!-- Modal Trigger -->
+															<a data-bs-toggle="modal" data-bs-target="#{{DSS.title}}modal" style="cursor: pointer;"><img src="{% static 'board/media/info_2.png' %}" style="width:25px; height:auto;"></a>
+
+															<!-- Modal -->
+															<div class="modal fade" id="{{DSS.title}}modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header">
+																	<h5 class="modal-title" id="exampleModalLabel">Notes for {{ DSS.title }}</h5>
+																	<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																	</div>
+																	<div class="modal-body">
+																	{{ DSS.notes }}
+																	</div>
+																	<div class="modal-footer">
+																	<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+																	</div>
+																</div>
+																</div>
+															</div>
+														</div>
+														<div class="col-md-2">
+															{% if state == 'Serviceable' %}
+																{% for update in updates %}
+																	{% if DSS.trilogi_version != update.trilogi_issue or DSS.wdms_version != update.wdms_issue %}
+																		<!-- trigger -->
+																		<a data-bs-toggle="modal" data-bs-target="#{{DSS.title}}_software_modal" style="cursor: pointer;"><img src="{% static 'board/media/fault.png' %}" style="width:25px; height:auto;"></a>
+																		<!-- modal -->
+																		<div class="modal fade" id="{{DSS.title}}_software_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																			<div class="modal-dialog">
+																			<div class="modal-content">
+																				<div class="modal-header">
+																				<h5 class="modal-title" id="exampleModalLabel">Update Status of {{ DSS.title }}</h5>
+																				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																				</div>
+																				<div class="modal-body">
+																				<table class="table table-dark">
+																					<thead>
+																					<tr>
+																						<th scope="col"></th>
+																						<th scope="col">Trilogi</th>
+																						<th scope="col">WDMS</th>
+																					</tr>
+																					</thead>
+																					<tbody>
+																					<tr>
+																						<th scope="row">{{ DSS.title }}</th>
+																						<td>{{ DSS.trilogi_version }}</td>
+																						<td>{{ DSS.wdms_version }}</td>
+																					</tr>
+																					<tr>
+																						<th scope="row">Current Issue</th>
+																						<td>{{ update.trilogi_issue }}</td>
+																						<td>{{ update.wdms_issue }}</td>
+																					</tr>
+																					</tbody>
+																				</table>
+																				</div>
+																				<div class="modal-footer">
+																				<button type="button" class="btn btn-outline-dark" data-bs-dismiss="modal">Close</button>
+																				</div>
+																			</div>
+																			</div>
+																		</div>
+																	{% endif %}
+																{% endfor %}
+															{% endif %}
+														</div>	
+													</div>
+												</div>
+											</article>
+										</div>
+									{% endif %}
+							{% endfor %}
+						</div>					
+					</div>
+		  		{% endfor %}
+			</div>
+		</div>					
+	</div>
+	<!-- <div class="row" style="padding-top: 5px;">
+		<div class="col-md-1">
+		</div>
+		<div class="col-md-11">
+			<h4>Quick Stats</h4>
+		</div>
+	</div> -->
+	<div class="row">
+		<div class="col-md-12" style="padding-left: 40px;">
+		  {% if graph %}
+			  <div>
+				  {{ graph|safe }}
+			  </div>
+		  {% endif %}
+	  </div>
+	</div>
+{% endblock content %}
