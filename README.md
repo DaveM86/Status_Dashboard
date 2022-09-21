@@ -54,3 +54,4 @@ erDiagram
         Numeric date_created
     }
 ```
+[Status Dashboard](https://www.captureprojects.cc)
