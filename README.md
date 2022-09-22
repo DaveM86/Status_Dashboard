@@ -1,5 +1,6 @@
 # Status Dashboard
 Dashboard application displaying the state of deployable server sets and their core elements.
+[Status Dashboard](https://www.captureprojects.cc)
 ---
 Database schema
 ---
@@ -10,7 +11,7 @@ erDiagram
     User ||--|{ Message: contains
     DSS ||--|{ Fault: contains
     User ||--|{ Fault: contain
-    User ||--|{ Task: contains
+    User ||--|{ ScheduledTask: contains
     DSS{
         Text db_num PK "The database Number"
         Text title
@@ -45,13 +46,16 @@ erDiagram
         Text status
         Text description
     }
-    Task {
+    ScheduledTask {
         Text id PK "Unique Fault ID"
         Text raised_by FK "User Table ID"
         Text description
+        Numeric date_due
         Text status
         Text notes
+        Text completed_by FK "User Table ID"
+        Numeric date_time_completed
         Numeric date_created
     }
 ```
-[Status Dashboard](https://www.captureprojects.cc)
+
