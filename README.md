@@ -1,6 +1,5 @@
 # Status Dashboard
 Dashboard application displaying the state of deployable server sets and their core elements.<n/>
-[Status Dashboard](https://www.captureprojects.cc)
 ---
 Database schema
 ---
