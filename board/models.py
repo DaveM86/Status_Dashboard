@@ -1,3 +1,4 @@
+from operator import mod
 from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
@@ -52,3 +53,26 @@ class Deployment(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('deployment')
+
+class InBuild(models.Model):
+	build_id = models.IntegerField()
+	dss_in_build = models.ForeignKey(DSS, on_delete=models.CASCADE)
+
+	def __str__(self):
+		return self.dss_in_build.__dict__['title']
+
+class BuildStages(models.Model):
+	stage = models.IntegerField()
+	stage_title = models.TextField()
+	stage_desc = models.TextField()
+	
+	def __str__(self):
+		return self.stage_title
+
+class DatesOfBuildStages(models.Model):
+	build_item = models.ForeignKey(InBuild, on_delete=models.CASCADE)
+	build_stage = models.ForeignKey(BuildStages, on_delete=models.CASCADE)
+	date = models.DateTimeField(default=timezone.now)
+
+	def __str__(self):
+		return f'{self.build_item.__str__()}_{self.build_stage.__dict__["stage_title"]}'
