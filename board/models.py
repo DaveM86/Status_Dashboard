@@ -55,7 +55,6 @@ class Deployment(models.Model):
 		return reverse('deployment')
 
 class InBuild(models.Model):
-	build_id = models.IntegerField()
 	dss_in_build = models.ForeignKey(DSS, on_delete=models.CASCADE)
 
 	def __str__(self):
@@ -65,6 +64,7 @@ class BuildStages(models.Model):
 	stage = models.IntegerField()
 	stage_title = models.TextField()
 	stage_desc = models.TextField()
+	exp_comp_time = models.IntegerField()
 	
 	def __str__(self):
 		return self.stage_title

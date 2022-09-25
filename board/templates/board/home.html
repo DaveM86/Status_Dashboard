@@ -137,21 +137,17 @@
 					</div>
 		  		{% endfor %}
 			</div>
-			<div class="row" style="padding-left: 40px; border: 4px solid #2F7395; border-radius: 5px;">
-				<h5 style="padding-top: 20px;">Deployed Personnel</h5>
-				{% if graph %}
+			<div class="row" style="border-top: 3px solid #2F7395;">
+				<div class="col-md-9">
 					<div>
-						{{ graph|safe }}
+						{% if graph %}
+						<div>
+							{{ graph|safe }}
+						</div>
+						{% endif %}
 					</div>
-				{% endif %}
+				</div>
 			</div>		
 		</div>					
 	</div>
-	<!-- <div class="row" style="padding-top: 5px;">
-		<div class="col-md-1">
-		</div>
-		<div class="col-md-11">
-			<h4>Quick Stats</h4>
-		</div>
-	</div> -->
 {% endblock content %}
