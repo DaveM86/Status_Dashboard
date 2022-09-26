@@ -1,5 +1,4 @@
 from re import template
-from tkinter.tix import COLUMN
 from django.shortcuts import render
 from django.db.models import Count
 from django.http import HttpResponse
@@ -73,8 +72,11 @@ class DSSListView(LoginRequiredMixin, ListView):
 
 		#Generate Line graph of Inbuild progression
 		build_data = DatesOfBuildStages.objects.values()
+		
 		df = pd.DataFrame(build_data)
+		
 		df = df.pivot(index='build_item_id', columns='build_stage_id', values='date')
+		
 		traces=[go.Scatter(
 			x = df.loc[name],
 			y = df.columns,
@@ -83,9 +85,9 @@ class DSSListView(LoginRequiredMixin, ListView):
 			)for name in df.index]
 
 		layout = go.Layout(
-			title = 'In Build DSS Progression',
-			plot_bgcolor = 'white'
-		)
+			# title = 'In Build DSS Progression',
+			plot_bgcolor = 'white',
+			)
 
 		fig = go.Figure(data=traces,layout=layout)
 
@@ -95,9 +97,14 @@ class DSSListView(LoginRequiredMixin, ListView):
 				tickvals = [1,2,3,4],
 				ticktext = ['Create Raid', 'Configure AD', 'Configure GPO', 'Create VMs'],
 				# tickangle = 30
-			),
-			template='seaborn'
-			)
+				),
+				template='seaborn',
+				margin=dict(l=0, r=20, t=20, b=20),
+				autosize=False,
+   				width=600,
+    			height=300,
+				)
+		
 		fig.update_xaxes(showline=True, linewidth=2, linecolor='#214F66', mirror=False, gridcolor='#214F66')
 		fig.update_yaxes(showline=True, linewidth=3, linecolor='#214F66', mirror=False, gridcolor='#214F66')
 
@@ -123,15 +130,6 @@ class DSSUpdateView(LoginRequiredMixin, UpdateView):
 	def form_valid(self, form):
 		form.instance.author = self.request.user
 		return super().form_valid(form)
-
-class BuildUpdateView(LoginRequiredMixin, UpdateView):
-	model = DatesOfBuildStages
-	fields = ['build_item', 'build_stage', 'date']
-
-	def form_valid(self, form):
-		form.instance.author = self.request.user
-		return super().form_valid(form)
-
 
 class CommentCreateView(CreateView):
 	model = Comment

@@ -23,5 +23,4 @@ urlpatterns = [
     path('comment/new/', CommentCreateView.as_view(), name='comment-create'),
     path('<int:pk>/software/update/', DSSUpdateView.as_view(), name='software-update'),
     path('deployment/', DeploymentListView.as_view(), name='deployment'),
-    path('<int:pk>/build/update/', BuildUpdateView.as_view(), name='build-update'),
 ]

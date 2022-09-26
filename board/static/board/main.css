@@ -172,9 +172,10 @@ img.icon {
 }
 
 .head-Unserviceable{
-  background-color: #96E9B4;
+  /* background-color: #96E9B4; */
+  background-color: #FFA500;
   border: solid 1px black;
-  color: black;
+  color: white;
 }
 
 .head-Deployed{
