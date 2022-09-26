@@ -15,7 +15,7 @@ Including another URLconf
 """
 
 from django.urls import path
-from .views import DSSListView, DSSUpdateView, CommentCreateView, SoftwareUpdateView, DeploymentListView, BuildUpdateView
+from .views import DSSListView, DSSUpdateView, CommentCreateView, SoftwareUpdateView, DeploymentListView
 
 urlpatterns = [
     path('', DSSListView.as_view(), name='board-home'),
