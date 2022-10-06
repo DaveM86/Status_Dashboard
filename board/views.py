@@ -8,7 +8,8 @@ from .models import (
 						Reply,
 						SoftwareUpdate,
 						Deployment,
-						DatesOfBuildStages
+						DatesOfBuildStages,
+						InBuild
 					)
 from django.views.generic import (
 	ListView,
@@ -29,6 +30,7 @@ import dash
 import pandas as pd
 import dash_core_components as dcc
 import dash_html_components as html
+from .build_objects import DSSInBuild
 
 
 # Create your views here.
@@ -85,7 +87,7 @@ class DSSListView(LoginRequiredMixin, ListView):
 			)for name in df.index]
 
 		layout = go.Layout(
-			# title = 'In Build DSS Progression',
+			title = 'In Build DSS Progression',
 			plot_bgcolor = 'white',
 			)
 
@@ -94,12 +96,12 @@ class DSSListView(LoginRequiredMixin, ListView):
 		fig.update_layout(
 			yaxis = dict(
 				tickmode = 'array',
-				tickvals = [1,2,3,4],
-				ticktext = ['Create Raid', 'Configure AD', 'Configure GPO', 'Create VMs'],
+				tickvals = [1,2,3,4,5,6],
+				ticktext = ['Config HW/RAID', 'Config AD/GPO', 'Config VMs', 'Create DB Instances', 'Configure Backups', 'QC/Testing'],
 				# tickangle = 30
 				),
 				template='seaborn',
-				margin=dict(l=0, r=20, t=20, b=20),
+				margin=dict(l=0, r=20, t=50, b=20),
 				autosize=False,
    				width=600,
     			height=300,
@@ -107,6 +109,15 @@ class DSSListView(LoginRequiredMixin, ListView):
 		
 		fig.update_xaxes(showline=True, linewidth=2, linecolor='#214F66', mirror=False, gridcolor='#214F66')
 		fig.update_yaxes(showline=True, linewidth=3, linecolor='#214F66', mirror=False, gridcolor='#214F66')
+
+		#get the start build dates for the build dates table on the home page
+		dss_in_build = InBuild.objects.all()		
+		dss_build_lst = [[x.dss_in_build.title, x.start_date_of_build] for x in dss_in_build]
+
+		class_objects = []
+		for build in dss_build_lst:
+			class_objects.append(DSSInBuild(build[0], build[1], 'some text'))
+
 
 		context.update({
 				'comments':Comment.objects.order_by('-date_posted')[0:3:],
@@ -116,6 +127,9 @@ class DSSListView(LoginRequiredMixin, ListView):
 				'column_width':col_width,
 				'state_totals':serviceable_totals,
 				'graph':fig.to_html,
+				'dss_in_build': dss_in_build,
+				'dss_build_lst': dss_build_lst,
+				'class_objects': class_objects
 			})
 		return context
 	

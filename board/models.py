@@ -56,6 +56,7 @@ class Deployment(models.Model):
 
 class InBuild(models.Model):
 	dss_in_build = models.ForeignKey(DSS, on_delete=models.CASCADE)
+	start_date_of_build = models.DateTimeField()
 
 	def __str__(self):
 		return self.dss_in_build.__dict__['title']
