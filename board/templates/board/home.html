@@ -150,30 +150,12 @@
 				<div class="col-md-1">
 				</div>
 				<div class="col-md-4" style="padding-top: 50px;">
-					<!-- <table>
-						<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col">Start of Build</th>
-							<th scope="col">Est. End Date</th>
-						</tr>
-						</thead>
-						<tbody>
-						{% for dss in dss_in_build %}
-						<tr>
-							<th scope="row">{{ dss.dss_in_build }}</th>
-							<td>{{ dss.start_date_of_build.date }}</td>
-							<td>placeholder</td>
-						</tr>
-						{% endfor %}
-						</tbody>
-					</table> -->
 					<table>
 						<thead>
 						<tr>
 							<th scope="col"></th>
 							<th scope="col">Start of Build</th>
-							<th scope="col">Est. End Date</th>
+							<th scope="col">Est. Completion Date</th>
 						</tr>
 						</thead>
 						<tbody>
@@ -181,7 +163,7 @@
 						<tr>
 							<th scope="row">{{ dss.dss }}</th>
 							<td>{{ dss.start_date.date }}</td>
-							<td>{{ dss.build_stage }}</td>
+							<td>{{ dss.time_remaining.date }}</td>
 						</tr>
 						{% endfor %}
 						</tbody>

@@ -9,7 +9,8 @@ from .models import (
 						SoftwareUpdate,
 						Deployment,
 						DatesOfBuildStages,
-						InBuild
+						InBuild,
+						BuildStages
 					)
 from django.views.generic import (
 	ListView,
@@ -113,10 +114,13 @@ class DSSListView(LoginRequiredMixin, ListView):
 		#get the start build dates for the build dates table on the home page
 		dss_in_build = InBuild.objects.all()		
 		dss_build_lst = [[x.dss_in_build.title, x.start_date_of_build] for x in dss_in_build]
+		dss_build_state = DatesOfBuildStages.objects.all()
+		build_stages = BuildStages.objects.all()
+
 
 		class_objects = []
 		for build in dss_build_lst:
-			class_objects.append(DSSInBuild(build[0], build[1], 'some text'))
+			class_objects.append(DSSInBuild(build[0], build[1], dss_build_state, build_stages))
 
 
 		context.update({
